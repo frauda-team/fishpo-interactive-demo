@@ -141,6 +141,12 @@
   flex-direction: column;
 }
 
+/* ── Embed mode (iframe with ?embed=1) ─────────────────────── */
+.website.embed-mode .website-body { padding: 0; }
+.website.embed-mode .app-embed {
+  width: 100%; border-radius: 0; box-shadow: none; border: none;
+}
+
 /* ── App layout ────────────────────────────────────────────── */
 .app {
   display: flex;

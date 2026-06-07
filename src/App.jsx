@@ -7,6 +7,8 @@ import ReadingPane from './components/ReadingPane'
 import PluginPanel from './components/PluginPanel'
 import './App.css'
 
+const isEmbed = new URLSearchParams(window.location.search).get('embed') === '1'
+
 export default function App() {
   const [emails, setEmails] = useState(initialEmails)
   const [selectedId, setSelectedId] = useState(null)
@@ -65,7 +67,7 @@ export default function App() {
   }
 
   return (
-    <div className="website">
+    <div className={`website${isEmbed ? ' embed-mode' : ''}`}>
       {/* Outer website nav */}
       <nav className="website-nav">
         <div className="website-brand">
