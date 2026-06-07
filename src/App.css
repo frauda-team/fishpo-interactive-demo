@@ -653,7 +653,7 @@
     bottom: 0; left: 0; right: 0;
     width: 100% !important;
     height: 0;
-    max-height: 75vh;
+    max-height: 30vh;
     border-left: none !important;
     border-top: 1px solid var(--f-stroke2);
     border-radius: 14px 14px 0 0;
@@ -662,7 +662,7 @@
     z-index: 60;
   }
   .plugin-panel.open {
-    height: 65vh;
+    height: 28vh;
     border-top-color: var(--f-stroke2);
     box-shadow: 0 -6px 24px rgba(0,0,0,.12) !important;
   }
