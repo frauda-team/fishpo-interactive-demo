@@ -14,7 +14,7 @@ import {
   MailRegular,
 } from '@fluentui/react-icons'
 
-export default function ReadingPane({ email, onBack, onDelete, onFlag, onToggleRead, hidden }) {
+export default function ReadingPane({ email, onBack, onDelete, onFlag, onToggleRead, hidden, highlightMode }) {
   if (!email) {
     return (
       <div className={`reading-pane${hidden ? ' mobile-hidden' : ''}`}>
@@ -102,7 +102,12 @@ export default function ReadingPane({ email, onBack, onDelete, onFlag, onToggleR
             <div className="msg-meta-text">
               <div className="msg-from-name">
                 {email.from}
-                <span className="msg-from-email">&lt;{email.fromEmail}&gt;</span>
+                <span className={`msg-from-email${highlightMode === 'scam' ? ' sus-email' : ''}`}>
+                  &lt;{email.fromEmail}&gt;
+                </span>
+                {highlightMode === 'scam' && (
+                  <span className="sus-email-badge">⚠ Aizdomīga adrese</span>
+                )}
               </div>
               <div className="msg-to-line">
                 To: <span>{email.to}</span>
@@ -114,9 +119,23 @@ export default function ReadingPane({ email, onBack, onDelete, onFlag, onToggleR
           <hr className="msg-divider" />
 
           <div
-            className="msg-body"
+            className={`msg-body${highlightMode === 'scam' ? ' highlights-on' : ''}`}
             dangerouslySetInnerHTML={{ __html: email.body }}
           />
+
+          {email.attachments && email.attachments.length > 0 && (
+            <div className="msg-attachments">
+              <div className="attachments-label">Pielikumi</div>
+              {email.attachments.map((att, i) => (
+                <div key={i} className={`attachment${att.malicious ? ' danger' : ''}`}>
+                  <span className="attachment-name">{att.name}</span>
+                  {att.malicious && highlightMode === 'scam' && (
+                    <span className="attachment-danger-badge">⚠ Aizdomīgs fails</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

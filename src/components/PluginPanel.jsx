@@ -143,7 +143,7 @@ function EmptyState() {
 }
 
 // ── Main component ─────────────────────────────────────────────
-export default function PluginPanel({ email, open, onClose }) {
+export default function PluginPanel({ email, open, onClose, onAnalysisDone }) {
   const [phase, setPhase] = useState('empty') // 'empty' | 'scanning' | 'result'
   const [result, setResult] = useState(null)
 
@@ -158,6 +158,7 @@ export default function PluginPanel({ email, open, onClose }) {
     const t = setTimeout(() => {
       setResult(email.scamCheck)
       setPhase('result')
+      onAnalysisDone?.(email.scamCheck.verdict)
     }, 1000)
     return () => clearTimeout(t)
   }, [email?.id])

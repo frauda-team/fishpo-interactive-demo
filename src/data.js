@@ -1,201 +1,201 @@
-// ── Clean emails (the deal thread + others) ──────────────────
+// ── Clean emails ──────────────────────────────────────────────
 export const initialEmails = [
   {
     id: 1,
     unread: false,
-    from: 'James Miller',
-    fromEmail: 'james.miller@contosopartners.com',
-    initials: 'JM',
+    from: 'Māris Bērziņš',
+    fromEmail: 'm.berzins@balticventures.lv',
+    initials: 'MB',
     avatarBg: '#0f6cbd',
-    subject: 'Partnership Agreement — Ready to Move Forward',
-    preview: "Hi, I wanted to follow up on our discussions from last week. Our legal team has reviewed the terms and we're ready to proceed. I'll have the contract prepared shortly.",
-    time: 'Jun 5',
-    date: 'Thu 6/5/2026 2:14 PM',
-    to: 'me',
+    subject: 'Partnerības līgums — Gatavi virzīties uz priekšu',
+    preview: 'Sveiki, vēlējos sekot līdzi mūsu pagājušās nedēļas sarunām. Mūsu juridiskā komanda ir izskatījusi noteikumus un esam gatavi turpināt sadarbību.',
+    time: '5. jūn.',
+    date: 'Ce 05.06.2026 14:14',
+    to: 'man',
     scamCheck: {
       verdict: 'clean',
       checks: [
-        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'james.miller@contosopartners.com matches your known contact. Domain is legitimate.' },
-        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'No urgency or high-pressure language detected.' },
-        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments in this email.' },
-        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Writing style consistent with previous correspondence.' },
+        { id: 'sender',      label: 'Sūtītājs verificēts',     pass: true, detail: 'm.berzins@balticventures.lv atbilst zināmajam kontaktam. Domēns ir likumīgs.' },
+        { id: 'urgency',     label: 'Nav spiediena taktikas',   pass: true, detail: 'Nav atklāta steidzamības vai spiediena valoda.' },
+        { id: 'attachments', label: 'Nav aizdomīgu failu',      pass: true, detail: 'Šajā e-pastā nav pielikumu.' },
+        { id: 'language',    label: 'Dabiska valoda',           pass: true, detail: 'Rakstīšanas stils atbilst iepriekšējai sarakstei.' },
       ],
     },
     body: `
-      <p>Hi,</p>
-      <p>I wanted to follow up on our discussions from last week. Our legal team has reviewed the proposed terms and we're ready to move forward with the partnership.</p>
-      <p>We're very excited about the potential here. I've asked our contracts team to prepare the formal partnership agreement document. Once it's ready I'll send it over for your review — shouldn't take more than a couple of days.</p>
-      <p>In the meantime, let me know if there's anything else you'd like to clarify before we get to the signing stage.</p>
+      <p>Sveiki,</p>
+      <p>Vēlējos sekot līdzi mūsu pagājušās nedēļas sarunām. Mūsu juridiskā komanda ir izskatījusi piedāvātos noteikumus un esam gatavi virzīties uz priekšu ar partnerību.</p>
+      <p>Mēs esam ļoti sajūsmināti par iespējām šeit. Esmu lūdzis mūsu līgumu komandai sagatavot formālo partnerības līguma dokumentu. Kad tas būs gatavs, nosūtīšu to jums apskatīšanai — tas neaizņems vairāk par pāris dienām.</p>
+      <p>Pa to laiku, dariet man zināmu, ja ir kaut kas, ko vēlaties precizēt pirms parakstīšanas posma.</p>
       <p class="sig">
-        James Miller<br/>
-        Head of Business Development · Contoso Partners<br/>
-        james.miller@contosopartners.com · +1 (312) 555-0174
+        Māris Bērziņš<br/>
+        Biznesa attīstības vadītājs · Baltic Ventures SIA<br/>
+        m.berzins@balticventures.lv · +371 2611 4820
       </p>
     `,
   },
   {
     id: 2,
     unread: false,
-    from: 'James Miller',
-    fromEmail: 'james.miller@contosopartners.com',
-    initials: 'JM',
+    from: 'Māris Bērziņš',
+    fromEmail: 'm.berzins@balticventures.lv',
+    initials: 'MB',
     avatarBg: '#0f6cbd',
-    subject: 'RE: Partnership Agreement — Contract Is Ready',
-    preview: "Great news — our legal team has finalised the contract. I'll be sending the PDF over shortly for your review and signature. The deadline for both parties is end of next week.",
-    time: 'Yesterday',
-    date: 'Sun 6/7/2026 11:08 AM',
-    to: 'me',
+    subject: 'RE: Partnerības līgums — Dokuments gatavs',
+    preview: 'Lieliskas ziņas — mūsu juridiskā komanda šorīt pabeidza līgumu. Drīzumā nosūtīšu PDF jums apskatīšanai un parakstīšanai. Termiņš abām pusēm ir nākamās nedēļas beigas.',
+    time: 'Vakar',
+    date: 'Sv 07.06.2026 11:08',
+    to: 'man',
     scamCheck: {
       verdict: 'clean',
       checks: [
-        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'james.miller@contosopartners.com — consistent with thread history.' },
-        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Deadline mentioned in context, not as a pressure tactic.' },
-        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments — PDF will be sent in a follow-up.' },
-        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Tone and phrasing match prior emails from this sender.' },
+        { id: 'sender',      label: 'Sūtītājs verificēts',     pass: true, detail: 'm.berzins@balticventures.lv — atbilst sarakstes vēsturei.' },
+        { id: 'urgency',     label: 'Nav spiediena taktikas',   pass: true, detail: 'Termiņš minēts kontekstā, nevis kā spiediena taktika.' },
+        { id: 'attachments', label: 'Nav aizdomīgu failu',      pass: true, detail: 'Nav pielikumu — PDF tiks nosūtīts atsevišķi.' },
+        { id: 'language',    label: 'Dabiska valoda',           pass: true, detail: 'Tonis un frāzes atbilst iepriekšējiem šī sūtītāja e-pastiem.' },
       ],
     },
     body: `
-      <p>Hi,</p>
-      <p>Great news — our legal team finalised the contract this morning. I'll be sending the PDF across shortly for your review.</p>
-      <p>Once you've had a chance to look it over, if everything looks good, we just need your signature and we can get this moving. Our internal deadline for both parties to sign is <strong>end of next week</strong>, so there's no rush — plenty of time to read through carefully.</p>
-      <p>Looking forward to getting this wrapped up. Let me know if you have any questions before the document arrives.</p>
+      <p>Sveiki,</p>
+      <p>Lieliskas ziņas — mūsu juridiskā komanda šorīt pabeidza līgumu. Drīzumā nosūtīšu PDF jums apskatīšanai.</p>
+      <p>Kad būsiet izskatījuši, ja viss izskatās labi, mums vienkārši vajadzīgs jūsu paraksts un varam virzīties uz priekšu. Mūsu iekšējais termiņš abām pusēm parakstīšanai ir <strong>nākamās nedēļas beigas</strong>, tāpēc nav steigas — pietiek laika, lai rūpīgi izlasītu.</p>
+      <p>Ceru pabeigsim šo darbu. Dāstiet man zināmu, ja jums ir kādi jautājumi pirms dokumenta saņemšanas.</p>
       <p class="sig">
-        James Miller<br/>
-        Head of Business Development · Contoso Partners<br/>
-        james.miller@contosopartners.com · +1 (312) 555-0174
+        Māris Bērziņš<br/>
+        Biznesa attīstības vadītājs · Baltic Ventures SIA<br/>
+        m.berzins@balticventures.lv · +371 2611 4820
       </p>
     `,
   },
   {
     id: 3,
     unread: true,
-    from: 'Sarah Johnson',
-    fromEmail: 'sarah.johnson@meridiangroup.com',
+    from: 'Santa Jansone',
+    fromEmail: 's.jansone@meridians-group.lv',
     initials: 'SJ',
     avatarBg: '#ca5010',
-    subject: 'Q3 Strategy Review — Thursday at 2:00 PM',
-    preview: "Hi team, I'm writing to confirm our Q3 strategy review session. Your attendance is important as we'll be setting priorities for the next quarter.",
-    time: '9:41 AM',
-    date: 'Mon 6/8/2026 9:41 AM',
-    to: 'Product Team',
+    subject: 'Q3 Stratēģijas pārskats — Ceturtdien plkst. 14:00',
+    preview: 'Sveiki, komanda! Vēlos apstiprināt mūsu gaidāmo Q3 stratēģijas pārskata sesiju. Jūsu dalība ir svarīga, jo mēs noteikšam prioritātes nākamajam ceturksnim.',
+    time: '9:41',
+    date: 'P 08.06.2026 9:41',
+    to: 'Produktu komanda',
     scamCheck: {
       verdict: 'clean',
       checks: [
-        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'sarah.johnson@meridiangroup.com is an internal address.' },
-        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Meeting invite with reasonable notice period.' },
-        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments detected.' },
-        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Consistent with internal communications.' },
+        { id: 'sender',      label: 'Sūtītājs verificēts',     pass: true, detail: 's.jansone@meridians-group.lv ir iekšēja adrese.' },
+        { id: 'urgency',     label: 'Nav spiediena taktikas',   pass: true, detail: 'Sanāksmes uzaicinājums ar saprātīgu paziņošanas laiku.' },
+        { id: 'attachments', label: 'Nav aizdomīgu failu',      pass: true, detail: 'Nav pielikumu.' },
+        { id: 'language',    label: 'Dabiska valoda',           pass: true, detail: 'Atbilst iekšējai saziņai.' },
       ],
     },
     body: `
-      <p>Hi team,</p>
-      <p>I'm writing to confirm our upcoming <strong>Q3 Strategy Review</strong> session. Your attendance is important — we'll be aligning on priorities and resource allocation for the next quarter.</p>
+      <p>Sveiki, komanda!</p>
+      <p>Vēlos apstiprināt mūsu gaidāmo <strong>Q3 Stratēģijas pārskata</strong> sesiju. Jūsu dalība ir svarīga — mēs vienojamies par prioritātēm un resursu sadali nākamajam ceturksnim.</p>
       <div class="callout">
-        <strong>📅 Meeting Details</strong><br/>
-        Date: <strong>Thursday, June 11, 2026</strong><br/>
-        Time: 2:00 PM – 3:30 PM (ET)<br/>
-        Location: Conference Room B &nbsp;·&nbsp; Teams link in calendar invite
+        <strong>📅 Sanāksmes informācija</strong><br/>
+        Datums: <strong>Ceturtdiena, 2026. gada 11. jūnijs</strong><br/>
+        Laiks: 14:00 – 15:30<br/>
+        Vieta: Konferenču zāle B · Teams saite kalendāra ielūgumā
       </div>
-      <h3>Agenda</h3>
+      <h3>Darba kārtība</h3>
       <ul>
-        <li>Q2 performance recap and KPI review <em>(20 min)</em></li>
-        <li>Q3 roadmap priorities and resource allocation <em>(30 min)</em></li>
-        <li>Budget approval for upcoming initiatives <em>(20 min)</em></li>
-        <li>Open discussion and team questions <em>(20 min)</em></li>
+        <li>Q2 darbības pārskats un KPI analīze <em>(20 min)</em></li>
+        <li>Q3 ceļvedis un resursu sadale <em>(30 min)</em></li>
+        <li>Budžeta apstiprināšana <em>(20 min)</em></li>
+        <li>Brīvā diskusija <em>(20 min)</em></li>
       </ul>
-      <p>If you cannot attend, let me know by <strong>Wednesday EOD</strong> so we can arrange a recording or a catch-up.</p>
+      <p>Ja nevarat piedalīties, lūdzu paziņojiet līdz <strong>trešdienas beigām</strong>.</p>
       <p class="sig">
-        Sarah Johnson<br/>
-        Head of Product Strategy · Meridian Group<br/>
-        sarah.johnson@meridiangroup.com
+        Santa Jansone<br/>
+        Produktu stratēģijas vadītāja · Meridiāns Group<br/>
+        s.jansone@meridians-group.lv
       </p>
     `,
   },
   {
     id: 4,
     unread: false,
-    from: 'Billing',
-    fromEmail: 'billing@meridiangroup.com',
-    initials: 'BI',
+    from: 'Grāmatvedība',
+    fromEmail: 'gramatvediba@meridians-group.lv',
+    initials: 'GR',
     avatarBg: '#881798',
-    subject: 'Invoice #INV-2026-0847 Awaiting Your Approval',
-    preview: 'A new invoice has been submitted and requires your review before the payment deadline. Invoice total: $14,750.00.',
-    time: 'Jun 2',
-    date: 'Mon 6/2/2026 11:23 AM',
-    to: 'Finance Approvers',
+    subject: 'Rēķins #REK-2026-0847 gaida jūsu apstiprinājumu',
+    preview: 'Rēķins ir iesniegts un prasa jūsu apstiprinājumu pirms maksājuma termiņa. Kopējā summa: €12 400,00.',
+    time: '2. jūn.',
+    date: 'P 02.06.2026 11:23',
+    to: 'Finanšu apstiprinātāji',
     scamCheck: {
       verdict: 'clean',
       checks: [
-        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'billing@meridiangroup.com is an internal billing address.' },
-        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Standard invoice with a reasonable due date.' },
-        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No file attachments in this notification.' },
-        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Formal billing language, consistent with finance templates.' },
+        { id: 'sender',      label: 'Sūtītājs verificēts',     pass: true, detail: 'gramatvediba@meridians-group.lv ir iekšēja grāmatvedības adrese.' },
+        { id: 'urgency',     label: 'Nav spiediena taktikas',   pass: true, detail: 'Standarta rēķins ar saprātīgu termiņu.' },
+        { id: 'attachments', label: 'Nav aizdomīgu failu',      pass: true, detail: 'Šajā paziņojumā nav failu pielikumu.' },
+        { id: 'language',    label: 'Dabiska valoda',           pass: true, detail: 'Formāls rēķina teksts, atbilst finanšu veidnēm.' },
       ],
     },
     body: `
-      <p>Hello,</p>
-      <p>An invoice has been submitted through the billing system and requires your approval.</p>
+      <p>Labdien,</p>
+      <p>Sistēmā ir iesniegts rēķins, kas prasa jūsu apstiprinājumu pirms maksājuma termiņa.</p>
       <div class="callout">
-        <strong>Invoice #INV-2026-0847</strong><br/>
-        Vendor: CloudStack Solutions Ltd.<br/>
-        Amount: <strong>$14,750.00 USD</strong><br/>
-        Due Date: June 20, 2026
+        <strong>Rēķins #REK-2026-0847</strong><br/>
+        Piegādātājs: CloudStack Solutions SIA<br/>
+        Summa: <strong>€12 400,00</strong><br/>
+        Termiņš: 2026. gada 20. jūnijs
       </div>
-      <h3>Line Items</h3>
+      <h3>Rindas vienumi</h3>
       <table>
-        <thead><tr><th>Description</th><th>Qty</th><th>Total</th></tr></thead>
+        <thead><tr><th>Apraksts</th><th>Daudzums</th><th>Kopā</th></tr></thead>
         <tbody>
-          <tr><td>Managed Kubernetes Cluster (Q2)</td><td>1</td><td>$9,500.00</td></tr>
-          <tr><td>Object Storage — 5 TB</td><td>5</td><td>$1,600.00</td></tr>
-          <tr><td>Enterprise Support Plan</td><td>1</td><td>$3,650.00</td></tr>
-          <tr><td colspan="2"><strong>Total</strong></td><td><strong>$14,750.00</strong></td></tr>
+          <tr><td>Kubernetes klasteris (Q2)</td><td>1</td><td>€7 800,00</td></tr>
+          <tr><td>Objektu glabātuve — 5 TB</td><td>5</td><td>€1 300,00</td></tr>
+          <tr><td>Enterprise atbalsta plāns</td><td>1</td><td>€3 300,00</td></tr>
+          <tr><td colspan="2"><strong>Kopā</strong></td><td><strong>€12 400,00</strong></td></tr>
         </tbody>
       </table>
       <p class="sig">
-        Meridian Group · Billing &amp; Finance<br/>
-        billing@meridiangroup.com · Ext. 4400
+        Meridiāns Group · Grāmatvedība<br/>
+        gramatvediba@meridians-group.lv · Tālr. 4400
       </p>
     `,
   },
   {
     id: 5,
     unread: true,
-    from: 'IT Helpdesk',
-    fromEmail: 'helpdesk@meridiangroup.com',
+    from: 'IT Atbalsts',
+    fromEmail: 'it.atbalsts@meridians-group.lv',
     initials: 'IT',
     avatarBg: '#c43e1c',
-    subject: '[Ticket #84721] VPN Access Request — Confirmed',
-    preview: 'Your VPN access request has been received and assigned to the network security team. Estimated resolution: within 24 business hours.',
-    time: 'Jun 4',
-    date: 'Thu 6/4/2026 2:57 PM',
-    to: 'me',
+    subject: '[Pieteikums #84721] VPN piekļuves pieprasījums — apstiprināts',
+    preview: 'Jūsu VPN piekļuves pieprasījums ir saņemts un piešķirts tīkla drošības komandai. Paredzamais izpildes laiks: 24 darba stundu laikā.',
+    time: '4. jūn.',
+    date: 'Ce 04.06.2026 14:57',
+    to: 'man',
     scamCheck: {
       verdict: 'clean',
       checks: [
-        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'helpdesk@meridiangroup.com is a known internal IT address.' },
-        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Standard ticket confirmation with no coercive language.' },
-        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments.' },
-        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Automated helpdesk tone, consistent with internal IT communications.' },
+        { id: 'sender',      label: 'Sūtītājs verificēts',     pass: true, detail: 'it.atbalsts@meridians-group.lv ir zināma iekšēja IT adrese.' },
+        { id: 'urgency',     label: 'Nav spiediena taktikas',   pass: true, detail: 'Standarta pieteikuma apstiprinājums bez piespiešanas valodas.' },
+        { id: 'attachments', label: 'Nav aizdomīgu failu',      pass: true, detail: 'Nav pielikumu.' },
+        { id: 'language',    label: 'Dabiska valoda',           pass: true, detail: 'Automātisks helpdesk tonis, atbilst iekšējai IT saziņai.' },
       ],
     },
     body: `
-      <p>Hello,</p>
-      <p>This email confirms we have received your VPN access request. Your ticket has been logged and assigned to the network security team.</p>
+      <p>Labdien,</p>
+      <p>Šis e-pasts apstiprina, ka esam saņēmuši jūsu VPN piekļuves pieprasījumu. Pieteikums ir reģistrēts un piešķirts tīkla drošības komandai.</p>
       <div class="callout">
-        <strong>Ticket #84721 — VPN Access Request</strong><br/>
-        Status: <strong>In Progress</strong><br/>
-        Priority: Normal<br/>
-        Estimated Resolution: Within 24 business hours
+        <strong>Pieteikums #84721 — VPN piekļuves pieprasījums</strong><br/>
+        Statuss: <strong>Tiek apstrādāts</strong><br/>
+        Prioritāte: Normāla<br/>
+        Paredzamā izpilde: 24 darba stundu laikā
       </div>
-      <h3>What Happens Next</h3>
+      <h3>Turpmākā rīcība</h3>
       <ol>
-        <li>The network team will review your access scope</li>
-        <li>Your manager will receive an approval request</li>
-        <li>Once approved, you'll receive VPN credentials and setup instructions</li>
+        <li>Tīkla komanda izskatīs jūsu piekļuves apjomu</li>
+        <li>Jūsu vadītājs saņems apstiprinājuma pieprasījumu</li>
+        <li>Pēc apstiprināšanas saņemsiet VPN akreditācijas datus un uzstādīšanas instrukcijas</li>
       </ol>
       <p class="sig">
-        IT Helpdesk · Meridian Group<br/>
-        helpdesk@meridiangroup.com · Ext. 9000
+        IT Atbalsts · Meridiāns Group<br/>
+        it.atbalsts@meridians-group.lv · Tālr. 9000
       </p>
     `,
   },
@@ -206,57 +206,58 @@ export const scamEmail = {
   id: 6,
   unread: true,
   isNew: true,
-  from: 'James Miiller',                          // ← typo: double 'i'
-  fromEmail: 'james.miiller@contosopartners.com', // ← typo domain
-  initials: 'JM',
+  from: 'Māris Bērziņš',
+  fromEmail: 'mb.beerzins@balticventures.lv',   // ← typo: "beerzins" not "berzins"
+  initials: 'MB',
   avatarBg: '#0f6cbd',
-  subject: 'RE: Partnership Agreement — Please Sign PDF Before Tomorrow EOD',
-  preview: 'Hi, please find the final contract PDF attached. We need your signature by tomorrow end of day — the deadline cannot be moved. This is urgent.',
-  time: 'Just now',
-  date: 'Mon 6/8/2026 10:03 AM',
-  to: 'me',
+  subject: 'RE: Partnerības līgums — Lūdzu parakstiet PDF līdz rītdienai',
+  preview: 'Lūdzu, atrodiet pievienoto galīgo līguma PDF. Mums vajadzīgs jūsu paraksts līdz rītdienas darba dienas beigām — termiņu nevar pārcelt. Tas ir steidzami.',
+  time: 'Tikko',
+  date: 'P 08.06.2026 10:03',
+  to: 'man',
   attachments: [
-    { name: 'Partnership_Final_Signature_v3.pdf', malicious: true },
+    { name: 'Partneriba_Ligums_Galigs_v3.pdf', malicious: true },
   ],
   scamCheck: {
     verdict: 'scam',
     checks: [
       {
         id: 'sender',
-        label: 'Suspicious sender address',
+        label: 'Aizdomīga sūtītāja adrese',
         pass: false,
-        detail: '"james.miiller@contosopartners.com" — double \'i\' in "miiller". Likely impersonating james.miller@contosopartners.com.',
+        detail: '"mb.beerzins@balticventures.lv" — dubultots "e" vārdā "beerzins". Iespējams, tiek atdarināts m.berzins@balticventures.lv.',
       },
       {
         id: 'urgency',
-        label: 'High-pressure language',
+        label: 'Augsts spiediena līmenis',
         pass: false,
-        detail: 'Phrases detected: "by tomorrow end of day", "deadline cannot be moved", "this is urgent" — classic pressure tactics used in phishing.',
+        detail: 'Atklātas frāzes: "līdz rītdienas darba dienas beigām", "termiņu nevar pārcelt", "tas ir steidzami" — klasiskas pikšķerēšanas taktikas.',
       },
       {
         id: 'attachments',
-        label: 'Malicious attachment',
+        label: 'Ļaunprātīgs pielikums',
         pass: false,
-        detail: 'Partnership_Final_Signature_v3.pdf contains embedded JavaScript and an obfuscated executable payload. Do not open.',
+        detail: 'Partneriba_Ligums_Galigs_v3.pdf satur iegultu JavaScript kodu un neskaidru izpildāmu kodu. Neatveriet.',
       },
       {
         id: 'language',
-        label: 'Natural language',
+        label: 'Dabiska valoda',
         pass: true,
-        detail: 'Writing style partially mimics the legitimate contact, but is more terse and pressuring than previous messages.',
+        detail: 'Rakstīšanas stils daļēji atdarina likumīgo kontaktu, bet ir steidzīgāks un spiedienu radošāks nekā iepriekšējie ziņojumi.',
       },
     ],
   },
+  // sus-mark spans are rendered by ReadingPane when highlights are active
   body: `
-    <p>Hi,</p>
-    <p>Please find the final partnership contract PDF attached to this email.</p>
-    <p>We need your signature returned by <strong>tomorrow, end of day</strong> — our legal team has confirmed the deadline cannot be moved. This is urgent.</p>
-    <p>Simply sign page 7 and email the document back, or use the DocuSign link on the last page.</p>
-    <p>Please treat this as a priority — the deal cannot proceed without your signed copy.</p>
+    <p>Sveiki,</p>
+    <p>Lūdzu, atrodiet pievienoto galīgo partnerības līguma PDF šajā e-pastā.</p>
+    <p>Mums vajadzīgs jūsu paraksts līdz <span class="sus-mark sus-urgency">rītdienas darba dienas beigām</span> — mūsu juridiskā komanda ir apstiprinājusi, ka <span class="sus-mark sus-urgency">termiņu nevar pārcelt</span>. <span class="sus-mark sus-urgency">Tas ir steidzami.</span></p>
+    <p>Vienkārši parakstiet 7. lappusi un nosūtiet dokumentu atpakaļ, vai izmantojiet DocuSign saiti pēdējā lappusē.</p>
+    <p>Lūdzu, uztveriet to kā prioritāti — <span class="sus-mark sus-urgency">darījums nevar turpināties bez jūsu parakstītās kopijas.</span></p>
     <p class="sig">
-      James Miiller<br/>
-      Head of Business Development · Contoso Partners<br/>
-      james.miiller@contosopartners.com
+      Māris Bērziņš<br/>
+      Biznesa attīstības vadītājs · Baltic Ventures SIA<br/>
+      mb.beerzins@balticventures.lv
     </p>
   `,
 }
