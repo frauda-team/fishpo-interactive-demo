@@ -68,7 +68,7 @@ export default function EmailList({ emails, selectedId, onSelect, onFlag, active
 function EmailRow({ email, selected, onSelect, onFlag }) {
   return (
     <div
-      className={`email-row${email.unread ? ' unread' : ''}${selected ? ' selected' : ''}`}
+      className={`email-row${email.unread ? ' unread' : ''}${selected ? ' selected' : ''}${email.isNew ? ' is-new' : ''}`}
       onClick={() => onSelect(email.id)}
     >
       {email.unread && <span className="unread-dot" />}

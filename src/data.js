@@ -1,6 +1,73 @@
+// ── Clean emails (the deal thread + others) ──────────────────
 export const initialEmails = [
   {
     id: 1,
+    unread: false,
+    from: 'James Miller',
+    fromEmail: 'james.miller@contosopartners.com',
+    initials: 'JM',
+    avatarBg: '#0f6cbd',
+    subject: 'Partnership Agreement — Ready to Move Forward',
+    preview: "Hi, I wanted to follow up on our discussions from last week. Our legal team has reviewed the terms and we're ready to proceed. I'll have the contract prepared shortly.",
+    time: 'Jun 5',
+    date: 'Thu 6/5/2026 2:14 PM',
+    to: 'me',
+    scamCheck: {
+      verdict: 'clean',
+      checks: [
+        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'james.miller@contosopartners.com matches your known contact. Domain is legitimate.' },
+        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'No urgency or high-pressure language detected.' },
+        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments in this email.' },
+        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Writing style consistent with previous correspondence.' },
+      ],
+    },
+    body: `
+      <p>Hi,</p>
+      <p>I wanted to follow up on our discussions from last week. Our legal team has reviewed the proposed terms and we're ready to move forward with the partnership.</p>
+      <p>We're very excited about the potential here. I've asked our contracts team to prepare the formal partnership agreement document. Once it's ready I'll send it over for your review — shouldn't take more than a couple of days.</p>
+      <p>In the meantime, let me know if there's anything else you'd like to clarify before we get to the signing stage.</p>
+      <p class="sig">
+        James Miller<br/>
+        Head of Business Development · Contoso Partners<br/>
+        james.miller@contosopartners.com · +1 (312) 555-0174
+      </p>
+    `,
+  },
+  {
+    id: 2,
+    unread: false,
+    from: 'James Miller',
+    fromEmail: 'james.miller@contosopartners.com',
+    initials: 'JM',
+    avatarBg: '#0f6cbd',
+    subject: 'RE: Partnership Agreement — Contract Is Ready',
+    preview: "Great news — our legal team has finalised the contract. I'll be sending the PDF over shortly for your review and signature. The deadline for both parties is end of next week.",
+    time: 'Yesterday',
+    date: 'Sun 6/7/2026 11:08 AM',
+    to: 'me',
+    scamCheck: {
+      verdict: 'clean',
+      checks: [
+        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'james.miller@contosopartners.com — consistent with thread history.' },
+        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Deadline mentioned in context, not as a pressure tactic.' },
+        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments — PDF will be sent in a follow-up.' },
+        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Tone and phrasing match prior emails from this sender.' },
+      ],
+    },
+    body: `
+      <p>Hi,</p>
+      <p>Great news — our legal team finalised the contract this morning. I'll be sending the PDF across shortly for your review.</p>
+      <p>Once you've had a chance to look it over, if everything looks good, we just need your signature and we can get this moving. Our internal deadline for both parties to sign is <strong>end of next week</strong>, so there's no rush — plenty of time to read through carefully.</p>
+      <p>Looking forward to getting this wrapped up. Let me know if you have any questions before the document arrives.</p>
+      <p class="sig">
+        James Miller<br/>
+        Head of Business Development · Contoso Partners<br/>
+        james.miller@contosopartners.com · +1 (312) 555-0174
+      </p>
+    `,
+  },
+  {
+    id: 3,
     unread: true,
     from: 'Sarah Johnson',
     fromEmail: 'sarah.johnson@meridiangroup.com',
@@ -11,6 +78,15 @@ export const initialEmails = [
     time: '9:41 AM',
     date: 'Mon 6/8/2026 9:41 AM',
     to: 'Product Team',
+    scamCheck: {
+      verdict: 'clean',
+      checks: [
+        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'sarah.johnson@meridiangroup.com is an internal address.' },
+        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Meeting invite with reasonable notice period.' },
+        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments detected.' },
+        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Consistent with internal communications.' },
+      ],
+    },
     body: `
       <p>Hi team,</p>
       <p>I'm writing to confirm our upcoming <strong>Q3 Strategy Review</strong> session. Your attendance is important — we'll be aligning on priorities and resource allocation for the next quarter.</p>
@@ -27,61 +103,16 @@ export const initialEmails = [
         <li>Budget approval for upcoming initiatives <em>(20 min)</em></li>
         <li>Open discussion and team questions <em>(20 min)</em></li>
       </ul>
-      <p>Please come prepared with your department updates and any blockers to raise. I've shared the preliminary slide deck in the Teams channel — review it before Thursday.</p>
       <p>If you cannot attend, let me know by <strong>Wednesday EOD</strong> so we can arrange a recording or a catch-up.</p>
       <p class="sig">
         Sarah Johnson<br/>
         Head of Product Strategy · Meridian Group<br/>
-        sarah.johnson@meridiangroup.com · +1 (415) 555-0192
+        sarah.johnson@meridiangroup.com
       </p>
     `,
   },
   {
-    id: 2,
-    unread: true,
-    from: 'Marcus Chen',
-    fromEmail: 'm.chen@meridiangroup.com',
-    initials: 'MC',
-    avatarBg: '#107c41',
-    subject: 'Atlas Platform — Sprint 24 Status Update',
-    preview: "Sprint 24 wrapped up yesterday. Here's a summary of what the team delivered and what's moving into Sprint 25.",
-    time: 'Yesterday',
-    date: 'Sun 6/7/2026 4:15 PM',
-    to: 'Engineering All',
-    body: `
-      <p>Hi all,</p>
-      <p>Sprint 24 closed out yesterday. Here's the summary of what shipped and what's rolling into Sprint 25.</p>
-      <h3>Completed This Sprint</h3>
-      <ul>
-        <li>✅ User authentication migrated to OAuth 2.0 — deployed to staging</li>
-        <li>✅ Bulk CSV/XLSX export for the analytics dashboard</li>
-        <li>✅ Search indexer performance improvements — avg query time down <strong>38%</strong></li>
-        <li>✅ Critical bug fix in invoice PDF generation <em>(issue #1847)</em></li>
-        <li>✅ API rate limiting updated to 500 req/min per token</li>
-      </ul>
-      <h3>Rolled Over to Sprint 25</h3>
-      <ul>
-        <li>🔄 Mobile notification redesign — 60% complete, blocked on design approval</li>
-        <li>🔄 Webhook retry logic — scoping in progress</li>
-      </ul>
-      <h3>Sprint 24 Metrics</h3>
-      <table>
-        <thead><tr><th>Metric</th><th>Target</th><th>Actual</th></tr></thead>
-        <tbody>
-          <tr><td>Story Points</td><td>62</td><td>58</td></tr>
-          <tr><td>Bug Fix Rate</td><td>90%</td><td>94%</td></tr>
-          <tr><td>Deployment Success</td><td>100%</td><td>100%</td></tr>
-        </tbody>
-      </table>
-      <p>Sprint 25 planning is scheduled for <strong>Tuesday at 10:00 AM</strong>. Please have your tickets estimated by Monday EOD.</p>
-      <p class="sig">
-        Marcus Chen<br/>
-        Engineering Lead, Atlas Platform · Meridian Group
-      </p>
-    `,
-  },
-  {
-    id: 3,
+    id: 4,
     unread: false,
     from: 'Billing',
     fromEmail: 'billing@meridiangroup.com',
@@ -89,76 +120,40 @@ export const initialEmails = [
     avatarBg: '#881798',
     subject: 'Invoice #INV-2026-0847 Awaiting Your Approval',
     preview: 'A new invoice has been submitted and requires your review before the payment deadline. Invoice total: $14,750.00.',
-    time: 'Mon',
+    time: 'Jun 2',
     date: 'Mon 6/2/2026 11:23 AM',
     to: 'Finance Approvers',
+    scamCheck: {
+      verdict: 'clean',
+      checks: [
+        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'billing@meridiangroup.com is an internal billing address.' },
+        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Standard invoice with a reasonable due date.' },
+        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No file attachments in this notification.' },
+        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Formal billing language, consistent with finance templates.' },
+      ],
+    },
     body: `
       <p>Hello,</p>
-      <p>An invoice has been submitted through the billing system and requires your approval before the payment deadline.</p>
+      <p>An invoice has been submitted through the billing system and requires your approval.</p>
       <div class="callout">
         <strong>Invoice #INV-2026-0847</strong><br/>
         Vendor: CloudStack Solutions Ltd.<br/>
         Amount: <strong>$14,750.00 USD</strong><br/>
-        Due Date: June 20, 2026<br/>
-        Category: Infrastructure / Cloud Services
+        Due Date: June 20, 2026
       </div>
       <h3>Line Items</h3>
       <table>
-        <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead>
+        <thead><tr><th>Description</th><th>Qty</th><th>Total</th></tr></thead>
         <tbody>
-          <tr><td>Managed Kubernetes Cluster (Q2)</td><td>1</td><td>$9,500.00</td><td>$9,500.00</td></tr>
-          <tr><td>Object Storage — 5 TB</td><td>5</td><td>$320.00</td><td>$1,600.00</td></tr>
-          <tr><td>CDN Bandwidth Overage</td><td>1</td><td>$650.00</td><td>$650.00</td></tr>
-          <tr><td>Enterprise Support Plan</td><td>1</td><td>$3,000.00</td><td>$3,000.00</td></tr>
-          <tr><td colspan="3"><strong>Total</strong></td><td><strong>$14,750.00</strong></td></tr>
+          <tr><td>Managed Kubernetes Cluster (Q2)</td><td>1</td><td>$9,500.00</td></tr>
+          <tr><td>Object Storage — 5 TB</td><td>5</td><td>$1,600.00</td></tr>
+          <tr><td>Enterprise Support Plan</td><td>1</td><td>$3,650.00</td></tr>
+          <tr><td colspan="2"><strong>Total</strong></td><td><strong>$14,750.00</strong></td></tr>
         </tbody>
       </table>
-      <p>Please log in to the <strong>Finance Portal</strong> to approve or flag this invoice. Approvals submitted after <strong>June 18</strong> may incur a late payment fee per vendor contract terms.</p>
-      <p>Reply to this email or contact the billing team if you have any questions.</p>
       <p class="sig">
         Meridian Group · Billing &amp; Finance<br/>
         billing@meridiangroup.com · Ext. 4400
-      </p>
-    `,
-  },
-  {
-    id: 4,
-    unread: false,
-    from: 'HR Team',
-    fromEmail: 'hr@meridiangroup.com',
-    initials: 'HR',
-    avatarBg: '#0078d4',
-    subject: 'Welcome to Meridian Group — Your First Day Overview',
-    preview: "We're thrilled to welcome you to Meridian Group! Here's everything you need to know before your first day on Monday, June 9.",
-    time: 'Jun 5',
-    date: 'Fri 6/5/2026 8:00 AM',
-    to: 'New Joiners',
-    body: `
-      <p>Dear Team Member,</p>
-      <p>We're absolutely thrilled to welcome you to <strong>Meridian Group</strong>! Your first day is on <strong>Monday, June 9</strong>, and we want to make sure you're set up for a smooth start.</p>
-      <h3>Before Your First Day</h3>
-      <ul>
-        <li>Complete digital onboarding forms in the HR portal (link sent separately)</li>
-        <li>Set up your company email and enable two-factor authentication</li>
-        <li>Review the Employee Handbook (attached)</li>
-        <li>Download <strong>Microsoft Teams</strong> and <strong>Slack</strong> on your devices</li>
-      </ul>
-      <h3>Your First Day Schedule</h3>
-      <table>
-        <thead><tr><th>Time</th><th>Activity</th><th>Location</th></tr></thead>
-        <tbody>
-          <tr><td>9:00 AM</td><td>Welcome &amp; badge pickup</td><td>Main reception</td></tr>
-          <tr><td>9:30 AM</td><td>HR orientation</td><td>Room 2A</td></tr>
-          <tr><td>11:00 AM</td><td>IT setup &amp; equipment handover</td><td>IT Desk, Floor 3</td></tr>
-          <tr><td>12:30 PM</td><td>Team lunch</td><td>Cafeteria</td></tr>
-          <tr><td>2:00 PM</td><td>Meet your manager &amp; team intro</td><td>Your team floor</td></tr>
-        </tbody>
-      </table>
-      <p>Your onboarding buddy for the first two weeks is <strong>David Park</strong> — reach out to him at <em>david.park@meridiangroup.com</em> with any questions before Monday.</p>
-      <p>We're excited to have you with us. See you Monday!</p>
-      <p class="sig">
-        The HR Team · Meridian Group<br/>
-        hr@meridiangroup.com · +1 (415) 555-0100
       </p>
     `,
   },
@@ -174,6 +169,15 @@ export const initialEmails = [
     time: 'Jun 4',
     date: 'Thu 6/4/2026 2:57 PM',
     to: 'me',
+    scamCheck: {
+      verdict: 'clean',
+      checks: [
+        { id: 'sender',      label: 'Sender verified',       pass: true,  detail: 'helpdesk@meridiangroup.com is a known internal IT address.' },
+        { id: 'urgency',     label: 'No pressure tactics',   pass: true,  detail: 'Standard ticket confirmation with no coercive language.' },
+        { id: 'attachments', label: 'No suspicious files',   pass: true,  detail: 'No attachments.' },
+        { id: 'language',    label: 'Natural language',      pass: true,  detail: 'Automated helpdesk tone, consistent with internal IT communications.' },
+      ],
+    },
     body: `
       <p>Hello,</p>
       <p>This email confirms we have received your VPN access request. Your ticket has been logged and assigned to the network security team.</p>
@@ -181,24 +185,78 @@ export const initialEmails = [
         <strong>Ticket #84721 — VPN Access Request</strong><br/>
         Status: <strong>In Progress</strong><br/>
         Priority: Normal<br/>
-        Submitted: June 4, 2026 at 2:50 PM<br/>
         Estimated Resolution: Within 24 business hours
       </div>
       <h3>What Happens Next</h3>
       <ol>
-        <li>The network team will review your access scope and requirements</li>
-        <li>Your manager will receive an approval request by email</li>
+        <li>The network team will review your access scope</li>
+        <li>Your manager will receive an approval request</li>
         <li>Once approved, you'll receive VPN credentials and setup instructions</li>
-        <li>A follow-up call may be scheduled if additional verification is needed</li>
       </ol>
-      <h3>Need Urgent Access?</h3>
-      <p>If you need remote access before this ticket resolves, contact your line manager or call the IT emergency line at <strong>Ext. 9000</strong>.</p>
-      <p>You can track this ticket at any time via the <strong>IT Self-Service Portal</strong>. Please do not reply directly to this email — use the portal or call us for updates.</p>
       <p class="sig">
         IT Helpdesk · Meridian Group<br/>
-        helpdesk@meridiangroup.com · Ext. 9000<br/>
-        Hours: Mon–Fri, 8:00 AM – 6:00 PM
+        helpdesk@meridiangroup.com · Ext. 9000
       </p>
     `,
   },
 ]
+
+// ── Scam email — injected after 1 s ──────────────────────────
+export const scamEmail = {
+  id: 6,
+  unread: true,
+  isNew: true,
+  from: 'James Miiller',                          // ← typo: double 'i'
+  fromEmail: 'james.miiller@contosopartners.com', // ← typo domain
+  initials: 'JM',
+  avatarBg: '#0f6cbd',
+  subject: 'RE: Partnership Agreement — Please Sign PDF Before Tomorrow EOD',
+  preview: 'Hi, please find the final contract PDF attached. We need your signature by tomorrow end of day — the deadline cannot be moved. This is urgent.',
+  time: 'Just now',
+  date: 'Mon 6/8/2026 10:03 AM',
+  to: 'me',
+  attachments: [
+    { name: 'Partnership_Final_Signature_v3.pdf', malicious: true },
+  ],
+  scamCheck: {
+    verdict: 'scam',
+    checks: [
+      {
+        id: 'sender',
+        label: 'Suspicious sender address',
+        pass: false,
+        detail: '"james.miiller@contosopartners.com" — double \'i\' in "miiller". Likely impersonating james.miller@contosopartners.com.',
+      },
+      {
+        id: 'urgency',
+        label: 'High-pressure language',
+        pass: false,
+        detail: 'Phrases detected: "by tomorrow end of day", "deadline cannot be moved", "this is urgent" — classic pressure tactics used in phishing.',
+      },
+      {
+        id: 'attachments',
+        label: 'Malicious attachment',
+        pass: false,
+        detail: 'Partnership_Final_Signature_v3.pdf contains embedded JavaScript and an obfuscated executable payload. Do not open.',
+      },
+      {
+        id: 'language',
+        label: 'Natural language',
+        pass: true,
+        detail: 'Writing style partially mimics the legitimate contact, but is more terse and pressuring than previous messages.',
+      },
+    ],
+  },
+  body: `
+    <p>Hi,</p>
+    <p>Please find the final partnership contract PDF attached to this email.</p>
+    <p>We need your signature returned by <strong>tomorrow, end of day</strong> — our legal team has confirmed the deadline cannot be moved. This is urgent.</p>
+    <p>Simply sign page 7 and email the document back, or use the DocuSign link on the last page.</p>
+    <p>Please treat this as a priority — the deal cannot proceed without your signed copy.</p>
+    <p class="sig">
+      James Miiller<br/>
+      Head of Business Development · Contoso Partners<br/>
+      james.miiller@contosopartners.com
+    </p>
+  `,
+}

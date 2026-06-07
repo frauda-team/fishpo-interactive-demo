@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { initialEmails } from './data'
+import { useState, useMemo, useEffect } from 'react'
+import { initialEmails, scamEmail } from './data'
 import TopBar from './components/TopBar'
 import Sidebar from './components/Sidebar'
 import EmailList from './components/EmailList'
@@ -16,25 +16,32 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('focused')
   const [pluginOpen, setPluginOpen] = useState(false)
 
+  // Inject scam email after 1 second
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setEmails(prev => [scamEmail, ...prev])
+    }, 1000)
+    return () => clearTimeout(t)
+  }, [])
+
   const selectedEmail = emails.find(e => e.id === selectedId) ?? null
   const unreadCount = emails.filter(e => e.unread).length
 
   const visibleEmails = useMemo(() => {
-    let list = emails
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase()
-      list = list.filter(e =>
-        e.from.toLowerCase().includes(q) ||
-        e.subject.toLowerCase().includes(q) ||
-        e.preview.toLowerCase().includes(q)
-      )
-    }
-    return list
+    if (!searchQuery.trim()) return emails
+    const q = searchQuery.toLowerCase()
+    return emails.filter(e =>
+      e.from.toLowerCase().includes(q) ||
+      e.subject.toLowerCase().includes(q) ||
+      e.preview.toLowerCase().includes(q)
+    )
   }, [emails, searchQuery])
 
   function handleSelect(id) {
     setSelectedId(id)
-    setEmails(prev => prev.map(e => e.id === id ? { ...e, unread: false } : e))
+    setEmails(prev => prev.map(e =>
+      e.id === id ? { ...e, unread: false, isNew: false } : e
+    ))
     setMobilePane('reading')
     setPluginOpen(true)
   }
@@ -88,7 +95,11 @@ export default function App() {
           onToggleRead={handleToggleRead}
           hidden={mobilePane === 'list'}
         />
-        <PluginPanel open={pluginOpen} onClose={() => setPluginOpen(false)} />
+        <PluginPanel
+          email={selectedEmail}
+          open={pluginOpen}
+          onClose={() => setPluginOpen(false)}
+        />
       </div>
     </div>
   )
