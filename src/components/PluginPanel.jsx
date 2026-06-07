@@ -46,7 +46,7 @@ function ScanningView() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setProgress(p => Math.min(p + 2, 98))
+      setProgress(p => Math.min(p + 4, 98))
     }, 20)
     return () => clearInterval(interval)
   }, [])
@@ -159,7 +159,7 @@ export default function PluginPanel({ email, open, onClose, onAnalysisDone }) {
       setResult(email.scamCheck)
       setPhase('result')
       onAnalysisDone?.(email.scamCheck.verdict)
-    }, 1000)
+    }, 500)
     return () => clearTimeout(t)
   }, [email?.id])
 
