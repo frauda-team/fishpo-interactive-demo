@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlook — Inbox</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue:         #0078d4;
+      --blue-dark:    #005a9e;
+      --blue-hover:   #106ebe;
+      --blue-light:   #deecf9;
+      --blue-lighter: #eff6fc;
+      --sidebar-bg:   #f5f5f5;
+      --border:       #e1dfdd;
+      --list-bg:      #ffffff;
+      --reading-bg:   #ffffff;
+      --txt:          #201f1e;
+      --txt2:         #605e5c;
+      --txt3:         #a19f9d;
+      --hover-bg:     #f3f2f1;
+      --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+
+    html, body { height: 100%; font-family: var(--font); color: var(--txt); overflow: hidden; }
+
+    /* ── App shell ─────────────────────────────────────── */
+    .app { display: flex; flex-direction: column; height: 100vh; }
+
+    /* Top bar */
+    .topbar {
+      height: 48px;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 12px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 9px;
+      color: white; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+    }
+
+    /* ── Three-column layout ───────────────────────────── */
+    .main { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+      padding: 8px 0;
+      overflow-y: auto;
+    }
+    .sidebar-section {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--txt3);
+      padding: 14px 16px 5px;
+    }
+    .folder {
+      display: flex; align-items: center; gap: 9px;
+      padding: 7px 12px; margin: 1px 5px;
+      border-radius: 5px; cursor: default; font-size: 13.5px;
+      color: var(--txt); user-select: none;
+    }
+    .folder.active { background: var(--blue-light); color: var(--blue); font-weight: 600; }
+    .folder svg { flex-shrink: 0; opacity: .85; }
+    .folder-label { flex: 1; }
+    .badge {
+      background: var(--blue); color: white;
+      font-size: 11px; font-weight: 700; border-radius: 12px;
+      padding: 1px 7px; min-width: 22px; text-align: center;
+    }
+
+    /* ── Email list ────────────────────────────────────── */
+    .list-col {
+      width: 340px; flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      background: var(--list-bg);
+    }
+    .list-head {
+      padding: 14px 16px 10px;
+      font-size: 20px; font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0; background: var(--list-bg);
+    }
+    .email-list { flex: 1; overflow-y: auto; }
+
+    /* Email row */
+    .email-row {
+      display: flex; align-items: flex-start;
+      padding: 11px 14px 11px 22px;
+      gap: 11px; border-bottom: 1px solid var(--border);
+      cursor: pointer; position: relative;
+      transition: background 80ms;
+    }
+    .email-row:hover { background: var(--hover-bg); }
+    .email-row.selected { background: var(--blue-light); }
+    .email-row.selected::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--blue); border-radius: 0 2px 2px 0;
+    }
+    .unread-dot {
+      position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+      width: 7px; height: 7px; border-radius: 50%; background: var(--blue);
+    }
+
+    /* Avatar circle */
+    .av {
+      width: 36px; height: 36px; border-radius: 50%;
+      font-size: 13px; font-weight: 700; color: white;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Row text */
+    .row-body { flex: 1; min-width: 0; }
+    .row-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 2px; }
+    .row-sender { font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .email-row.unread .row-sender { font-weight: 700; }
+    .row-time { font-size: 11px; color: var(--txt3); flex-shrink: 0; }
+    .email-row.unread .row-time { color: var(--blue); font-weight: 600; }
+    .row-subject {
+      font-size: 13px; color: var(--txt2);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px;
+    }
+    .email-row.unread .row-subject { font-weight: 700; color: var(--txt); }
+    .row-snippet {
+      font-size: 12px; color: var(--txt3);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* ── Reading pane ──────────────────────────────────── */
+    .reading {
+      flex: 1; overflow-y: auto;
+      background: var(--reading-bg);
+    }
+    .reading-inner { padding: 28px 36px; max-width: 800px; }
+
+    .empty-state {
+      height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+    }
+    .empty-state svg { opacity: .25; }
+    .empty-state span { font-size: 14px; color: var(--txt3); }
+
+    .msg-subject { font-size: 22px; font-weight: 600; line-height: 1.3; margin-bottom: 20px; }
+    .msg-meta { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; }
+    .msg-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      font-size: 14px; font-weight: 700; color: white;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .msg-info { flex: 1; }
+    .msg-name { font-size: 14px; font-weight: 600; }
+    .msg-addr { font-size: 12px; color: var(--txt2); margin-top: 1px; }
+    .msg-date { font-size: 12px; color: var(--txt3); white-space: nowrap; }
+    .msg-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+    /* Email body typography */
+    .msg-body { font-size: 14.5px; line-height: 1.65; color: var(--txt); }
+    .msg-body p { margin-bottom: 14px; }
+    .msg-body h3 { font-size: 15px; font-weight: 600; margin: 18px 0 8px; color: var(--txt); }
+    .msg-body ul, .msg-body ol { padding-left: 22px; margin-bottom: 14px; }
+    .msg-body li { margin-bottom: 5px; }
+    .msg-body strong { font-weight: 600; }
+    .msg-body .callout {
+      background: var(--blue-lighter);
+      border-left: 3px solid var(--blue);
+      padding: 13px 16px; margin-bottom: 16px;
+      border-radius: 0 5px 5px 0; font-size: 13.5px; line-height: 1.6;
+    }
+    .msg-body table {
+      border-collapse: collapse; width: 100%; margin-bottom: 16px;
+      font-size: 13px;
+    }
+    .msg-body td, .msg-body th {
+      padding: 8px 12px; border: 1px solid var(--border); text-align: left;
+    }
+    .msg-body th { background: var(--hover-bg); font-weight: 600; }
+    .msg-body .sig {
+      color: var(--txt2); font-size: 13px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px; margin-top: 20px; line-height: 1.7;
+    }
+
+    /* Back button — mobile only */
+    .back-btn {
+      display: none; align-items: center; gap: 6px;
+      color: var(--blue); font-size: 14px; font-weight: 500;
+      padding: 6px 0 18px; cursor: pointer;
+      background: none; border: none; font-family: var(--font);
+    }
+
+    /* ── Responsive ────────────────────────────────────── */
+    @media (max-width: 960px) { .sidebar { display: none; } }
+
+    @media (max-width: 640px) {
+      .list-col { width: 100%; border-right: none; }
+      .reading {
+        display: none; position: fixed;
+        inset: 48px 0 0 0; z-index: 30;
+        overflow-y: auto; background: var(--reading-bg);
+      }
+      .reading.open { display: block; }
+      .reading-inner { padding: 16px 18px; }
+      .back-btn { display: flex; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ── Top bar ─────────────────────────────────── -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <!-- Outlook envelope icon (simplified) -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="1.5" y="3.5" width="14" height="17" rx="1.8" fill="white" fill-opacity=".22"/>
+        <rect x="1.5" y="3.5" width="14" height="17" rx="1.8" stroke="white" stroke-width=".6" stroke-opacity=".4"/>
+        <circle cx="8.5" cy="12" r="3.4" fill="white"/>
+        <rect x="15.5" y="3.5" width="7" height="17" rx="0" fill="white" fill-opacity=".12"/>
+        <line x1="15.5" y1="3.5" x2="15.5" y2="20.5" stroke="white" stroke-width=".7" stroke-opacity=".35"/>
+      </svg>
+      Outlook
+    </div>
+  </div>
+
+  <!-- ── Main ────────────────────────────────────── -->
+  <div class="main">
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-section">Mail</div>
+
+      <div class="folder active">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.025L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+        </svg>
+        <span class="folder-label">Inbox</span>
+        <span class="badge" id="unreadBadge">3</span>
+      </div>
+
+      <div class="folder">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.431 1.193Z"/>
+        </svg>
+        <span class="folder-label">Sent Items</span>
+      </div>
+
+      <div class="folder">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+          <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7z"/>
+        </svg>
+        <span class="folder-label">Drafts</span>
+      </div>
+    </nav>
+
+    <!-- Email list -->
+    <div class="list-col">
+      <div class="list-head">Inbox</div>
+      <div class="email-list" id="emailList"></div>
+    </div>
+
+    <!-- Reading pane -->
+    <div class="reading" id="readingPane">
+      <div class="reading-inner" id="readingContent">
+        <div class="empty-state">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+            <rect x="4" y="9" width="44" height="34" rx="3.5" stroke="#605e5c" stroke-width="2.2"/>
+            <path d="M4 17l22 14 22-14" stroke="#605e5c" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+          <span>Select a message to read</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const emails = [
+  {
+    id: 1,
+    unread: true,
+    from: 'Sarah Johnson',
+    email: 'sarah.johnson@meridiangroup.com',
+    initials: 'SJ',
+    color: '#ca5010',
+    subject: 'Q3 Strategy Review — Thursday at 2:00 PM',
+    snippet: "Hi team, I'm writing to confirm our Q3 strategy review. Your attendance is important as we'll be setting priorities…",
+    time: '9:41 AM',
+    fullDate: 'Monday, June 8, 2026 at 9:41 AM',
+    body: `
+      <p>Hi team,</p>
+      <p>I'm writing to confirm our upcoming <strong>Q3 Strategy Review</strong>. Your attendance is important — we'll be aligning on priorities and resource allocation for the next quarter.</p>
+      <div class="callout">
+        <strong>📅 Meeting Details</strong><br>
+        Date: <strong>Thursday, June 11, 2026</strong><br>
+        Time: 2:00 PM – 3:30 PM (ET)<br>
+        Location: Conference Room B &nbsp;·&nbsp; Teams link in calendar invite
+      </div>
+      <h3>Agenda</h3>
+      <ul>
+        <li>Q2 performance recap and KPI review <em>(20 min)</em></li>
+        <li>Q3 roadmap priorities and resource allocation <em>(30 min)</em></li>
+        <li>Budget approval for upcoming initiatives <em>(20 min)</em></li>
+        <li>Open discussion and team questions <em>(20 min)</em></li>
+      </ul>
+      <p>Please come prepared with your department updates and any blockers to raise. I've shared the preliminary slide deck in the Teams channel — review it before Thursday.</p>
+      <p>If you cannot attend, let me know by <strong>Wednesday EOD</strong> so we can arrange a recording or a catch-up.</p>
+      <div class="sig">
+        Sarah Johnson<br>
+        Head of Product Strategy · Meridian Group<br>
+        sarah.johnson@meridiangroup.com · +1 (415) 555-0192
+      </div>`
+  },
+  {
+    id: 2,
+    unread: true,
+    from: 'Marcus Chen',
+    email: 'm.chen@meridiangroup.com',
+    initials: 'MC',
+    color: '#107c41',
+    subject: 'Atlas Platform — Sprint 24 Status Update',
+    snippet: 'Sprint 24 wrapped up yesterday. Here's a summary of what the team delivered and what's moving into Sprint 25…',
+    time: 'Yesterday',
+    fullDate: 'Sunday, June 7, 2026 at 4:15 PM',
+    body: `
+      <p>Hi all,</p>
+      <p>Sprint 24 closed out yesterday. Here's the summary of what shipped and what's rolling into Sprint 25.</p>
+      <h3>Completed This Sprint</h3>
+      <ul>
+        <li>✅ User authentication migrated to OAuth 2.0 — deployed to staging</li>
+        <li>✅ Bulk CSV/XLSX export for the analytics dashboard</li>
+        <li>✅ Search indexer performance improvements — avg query time down <strong>38%</strong></li>
+        <li>✅ Critical bug fix in invoice PDF generation <em>(issue #1847)</em></li>
+        <li>✅ API rate limiting updated to 500 req/min per token</li>
+      </ul>
+      <h3>Rolled Over to Sprint 25</h3>
+      <ul>
+        <li>🔄 Mobile notification redesign — 60% complete, blocked on design approval</li>
+        <li>🔄 Webhook retry logic — scoping in progress</li>
+      </ul>
+      <h3>Sprint 24 Metrics</h3>
+      <table>
+        <tr><th>Metric</th><th>Target</th><th>Actual</th></tr>
+        <tr><td>Story Points</td><td>62</td><td>58</td></tr>
+        <tr><td>Bug Fix Rate</td><td>90%</td><td>94%</td></tr>
+        <tr><td>Deployment Success</td><td>100%</td><td>100%</td></tr>
+      </table>
+      <p>Sprint 25 planning is scheduled for <strong>Tuesday at 10:00 AM</strong>. Please have your tickets estimated by Monday EOD.</p>
+      <div class="sig">
+        Marcus Chen<br>
+        Engineering Lead, Atlas Platform · Meridian Group<br>
+        m.chen@meridiangroup.com
+      </div>`
+  },
+  {
+    id: 3,
+    unread: false,
+    from: 'Billing',
+    email: 'billing@meridiangroup.com',
+    initials: 'BI',
+    color: '#881798',
+    subject: 'Invoice #INV-2026-0847 Awaiting Your Approval',
+    snippet: 'A new invoice has been submitted and requires your review. Invoice total: $14,750.00 — due June 20…',
+    time: 'Mon',
+    fullDate: 'Monday, June 2, 2026 at 11:23 AM',
+    body: `
+      <p>Hello,</p>
+      <p>An invoice has been submitted through the billing system and requires your approval before the payment deadline.</p>
+      <div class="callout">
+        <strong>Invoice #INV-2026-0847</strong><br>
+        Vendor: CloudStack Solutions Ltd.<br>
+        Amount: <strong>$14,750.00 USD</strong><br>
+        Due Date: June 20, 2026<br>
+        Category: Infrastructure / Cloud Services
+      </div>
+      <h3>Line Items</h3>
+      <table>
+        <tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr>
+        <tr><td>Managed Kubernetes Cluster (Q2)</td><td>1</td><td>$9,500.00</td><td>$9,500.00</td></tr>
+        <tr><td>Object Storage — 5 TB</td><td>5</td><td>$320.00</td><td>$1,600.00</td></tr>
+        <tr><td>CDN Bandwidth Overage</td><td>1</td><td>$650.00</td><td>$650.00</td></tr>
+        <tr><td>Enterprise Support Plan</td><td>1</td><td>$3,000.00</td><td>$3,000.00</td></tr>
+        <tr><td colspan="3"><strong>Total</strong></td><td><strong>$14,750.00</strong></td></tr>
+      </table>
+      <p>Please log in to the <strong>Finance Portal</strong> to approve or flag this invoice. Approvals submitted after <strong>June 18</strong> may incur a late payment fee per vendor contract terms.</p>
+      <p>Reply to this email or contact the billing team if you have questions.</p>
+      <div class="sig">
+        Meridian Group · Billing & Finance<br>
+        billing@meridiangroup.com · Ext. 4400
+      </div>`
+  },
+  {
+    id: 4,
+    unread: false,
+    from: 'HR Team',
+    email: 'hr@meridiangroup.com',
+    initials: 'HR',
+    color: '#0078d4',
+    subject: 'Welcome to Meridian Group — Your First Day Overview',
+    snippet: "We're thrilled to welcome you! Here's everything you need to know before your first day on Monday, June 9…",
+    time: 'Jun 5',
+    fullDate: 'Friday, June 5, 2026 at 8:00 AM',
+    body: `
+      <p>Dear Team Member,</p>
+      <p>We're absolutely thrilled to welcome you to <strong>Meridian Group</strong>! Your first day is on <strong>Monday, June 9</strong>, and we want to make sure you're set up for a smooth start.</p>
+      <h3>Before Your First Day</h3>
+      <ul>
+        <li>Complete digital onboarding forms in the HR portal (link sent separately)</li>
+        <li>Set up your company email and enable two-factor authentication</li>
+        <li>Review the Employee Handbook (attached to onboarding email)</li>
+        <li>Download <strong>Microsoft Teams</strong> and <strong>Slack</strong> on your devices</li>
+      </ul>
+      <h3>Your First Day Schedule</h3>
+      <table>
+        <tr><th>Time</th><th>Activity</th><th>Location</th></tr>
+        <tr><td>9:00 AM</td><td>Welcome & badge pickup</td><td>Main reception</td></tr>
+        <tr><td>9:30 AM</td><td>HR orientation</td><td>Room 2A</td></tr>
+        <tr><td>11:00 AM</td><td>IT setup & equipment handover</td><td>IT Desk, Floor 3</td></tr>
+        <tr><td>12:30 PM</td><td>Team lunch</td><td>Cafeteria</td></tr>
+        <tr><td>2:00 PM</td><td>Meet your manager & team intro</td><td>Your team floor</td></tr>
+      </table>
+      <p>Your onboarding buddy for the first two weeks is <strong>David Park</strong> — feel free to reach out to him at <em>david.park@meridiangroup.com</em> with any questions before Monday.</p>
+      <p>We're excited to have you with us. See you Monday!</p>
+      <div class="sig">
+        The HR Team · Meridian Group<br>
+        hr@meridiangroup.com · +1 (415) 555-0100
+      </div>`
+  },
+  {
+    id: 5,
+    unread: true,
+    from: 'IT Helpdesk',
+    email: 'helpdesk@meridiangroup.com',
+    initials: 'IT',
+    color: '#c43e1c',
+    subject: '[Ticket #84721] VPN Access Request — Confirmed',
+    snippet: 'Your VPN access request has been received and is being processed. Estimated resolution: within 24 business hours…',
+    time: 'Jun 4',
+    fullDate: 'Thursday, June 4, 2026 at 2:57 PM',
+    body: `
+      <p>Hello,</p>
+      <p>This email confirms we have received your VPN access request. Your ticket has been logged and assigned to the network security team.</p>
+      <div class="callout">
+        <strong>Ticket #84721 — VPN Access Request</strong><br>
+        Status: <strong>In Progress</strong><br>
+        Priority: Normal<br>
+        Submitted: June 4, 2026 at 2:50 PM<br>
+        Estimated Resolution: Within 24 business hours
+      </div>
+      <h3>What Happens Next</h3>
+      <ol>
+        <li>The network team will review your access scope and requirements</li>
+        <li>Your manager will receive an approval request by email</li>
+        <li>Once approved, you'll receive VPN credentials and setup instructions</li>
+        <li>A follow-up call may be scheduled if additional verification is needed</li>
+      </ol>
+      <h3>Need Urgent Access?</h3>
+      <p>If you need remote access before this ticket resolves, contact your line manager or call the IT emergency line at <strong>Ext. 9000</strong>.</p>
+      <p>Track this ticket at any time via the <strong>IT Self-Service Portal</strong>. Please do not reply directly to this email — use the portal or call us for updates.</p>
+      <div class="sig">
+        IT Helpdesk · Meridian Group<br>
+        helpdesk@meridiangroup.com · Ext. 9000<br>
+        Hours: Mon–Fri, 8:00 AM – 6:00 PM
+      </div>`
+  }
+];
+
+// ── State ──────────────────────────────────────────────
+let selectedId = null;
+
+// ── Render list ────────────────────────────────────────
+function renderList() {
+  const el = document.getElementById('emailList');
+  el.innerHTML = emails.map(e => `
+    <div class="email-row${e.unread ? ' unread' : ''}${selectedId === e.id ? ' selected' : ''}"
+         onclick="openEmail(${e.id})">
+      ${e.unread ? '<div class="unread-dot"></div>' : ''}
+      <div class="av" style="background:${e.color}">${e.initials}</div>
+      <div class="row-body">
+        <div class="row-top">
+          <span class="row-sender">${e.from}</span>
+          <span class="row-time">${e.time}</span>
+        </div>
+        <div class="row-subject">${e.subject}</div>
+        <div class="row-snippet">${e.snippet}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Update unread badge
+  const unreadCount = emails.filter(e => e.unread).length;
+  const badge = document.getElementById('unreadBadge');
+  if (unreadCount > 0) { badge.textContent = unreadCount; badge.style.display = ''; }
+  else { badge.style.display = 'none'; }
+}
+
+// ── Open email ─────────────────────────────────────────
+function openEmail(id) {
+  selectedId = id;
+  const e = emails.find(x => x.id === id);
+  e.unread = false;
+
+  const content = document.getElementById('readingContent');
+  content.innerHTML = `
+    <button class="back-btn" onclick="closeReading()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      Back
+    </button>
+    <div class="msg-subject">${e.subject}</div>
+    <div class="msg-meta">
+      <div class="msg-av" style="background:${e.color}">${e.initials}</div>
+      <div class="msg-info">
+        <div class="msg-name">${e.from} <span style="font-weight:400;color:var(--txt2);font-size:12px;">&lt;${e.email}&gt;</span></div>
+        <div class="msg-addr">To: me</div>
+      </div>
+      <div class="msg-date">${e.fullDate}</div>
+    </div>
+    <hr class="msg-divider">
+    <div class="msg-body">${e.body}</div>
+  `;
+
+  // Mobile: slide in reading pane
+  if (window.innerWidth <= 640) {
+    document.getElementById('readingPane').classList.add('open');
+  }
+
+  renderList();
+}
+
+// ── Close reading (mobile) ─────────────────────────────
+function closeReading() {
+  document.getElementById('readingPane').classList.remove('open');
+}
+
+// ── Init ───────────────────────────────────────────────
+renderList();
+</script>
+</body>
+</html>

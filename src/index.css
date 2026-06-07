@@ -1,0 +1,45 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Fluent 2 Light theme tokens */
+  --f-bg1:       #ffffff;
+  --f-bg2:       #fafafa;
+  --f-bg3:       #f5f5f5;
+  --f-bg4:       #f0f0f0;
+  --f-bg5:       #ebebeb;
+
+  --f-fg1:       #242424;
+  --f-fg2:       #424242;
+  --f-fg3:       #616161;
+  --f-fg4:       #707070;
+  --f-fg-dis:    #bdbdbd;
+
+  --f-stroke1:   #d1d1d1;
+  --f-stroke2:   #e0e0e0;
+
+  --f-brand:     #0078d4;
+  --f-brand-hov: #106ebe;
+  --f-brand-prs: #005a9e;
+  --f-brand-sel: #deecf9;
+  --f-brand-fg:  #0078d4;
+
+  --f-hover:     #f5f5f5;
+  --f-pressed:   #e0e0e0;
+  --f-selected:  #ebebeb;
+
+  --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--f-fg1);
+  background: var(--f-bg1);
+  overflow: hidden;
+}
+
+button { font-family: var(--font); cursor: pointer; }
