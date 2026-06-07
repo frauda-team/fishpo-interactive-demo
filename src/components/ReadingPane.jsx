@@ -106,7 +106,7 @@ export default function ReadingPane({ email, onBack, onDelete, onFlag, onToggleR
                   &lt;{email.fromEmail}&gt;
                 </span>
                 {highlightMode === 'scam' && (
-                  <span className="sus-email-badge">⚠ Aizdomīga adrese</span>
+                  <span className="sus-email-badge">⚠ Suspicious address</span>
                 )}
               </div>
               <div className="msg-to-line">
@@ -125,12 +125,12 @@ export default function ReadingPane({ email, onBack, onDelete, onFlag, onToggleR
 
           {email.attachments && email.attachments.length > 0 && (
             <div className="msg-attachments">
-              <div className="attachments-label">Pielikumi</div>
+              <div className="attachments-label">Attachments</div>
               {email.attachments.map((att, i) => (
                 <div key={i} className={`attachment${att.malicious ? ' danger' : ''}`}>
                   <span className="attachment-name">{att.name}</span>
                   {att.malicious && highlightMode === 'scam' && (
-                    <span className="attachment-danger-badge">⚠ Aizdomīgs fails</span>
+                    <span className="attachment-danger-badge">⚠ Suspicious file</span>
                   )}
                 </div>
               ))}

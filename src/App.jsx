@@ -71,19 +71,19 @@ export default function App() {
         <div className="website-brand">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
             <rect width="22" height="22" rx="5" fill="#0078d4"/>
-            <path d="M6 11a5 5 0 1 0 10 0 5 5 0 0 0-10 0z" fill="white" fillOpacity=".9"/>
-            <path d="M11 7v4l3 2" stroke="#0078d4" strokeWidth="1.5" strokeLinecap="round"/>
+            <rect x="3" y="6" width="16" height="10.5" rx="1.5" fill="none" stroke="white" strokeWidth="1.4"/>
+            <path d="M3 8.5l8 5 8-5" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span className="website-brand-name">Meridiāns Group</span>
+          <span className="website-brand-name">Meridian Group</span>
         </div>
         <div className="website-nav-links">
-          <span className="website-nav-link active">Pasts</span>
-          <span className="website-nav-link">Kalendārs</span>
-          <span className="website-nav-link">Projekti</span>
-          <span className="website-nav-link">Dokumenti</span>
+          <span className="website-nav-link active">Mail</span>
+          <span className="website-nav-link">Calendar</span>
+          <span className="website-nav-link">Projects</span>
+          <span className="website-nav-link">Documents</span>
         </div>
         <div className="website-nav-user">
-          <div className="website-nav-avatar">AN</div>
+          <div className="website-nav-avatar">MN</div>
         </div>
       </nav>
 

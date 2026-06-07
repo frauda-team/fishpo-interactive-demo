@@ -13,15 +13,12 @@ export default function TopBar({ sidebarOpen, onToggleSidebar, searchQuery, onSe
       </button>
 
       <div className="topbar-brand">
-        {/* Outlook icon */}
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
           <rect width="26" height="26" rx="3.5" fill="#0078d4"/>
-          <rect x="2.5" y="5" width="13" height="16" rx="1.5" fill="white" fillOpacity=".22" stroke="white" strokeWidth=".7" strokeOpacity=".45"/>
-          <circle cx="9" cy="13" r="3.2" fill="white"/>
-          <rect x="15.5" y="5" width="8" height="16" rx="0" fill="white" fillOpacity=".12"/>
-          <line x1="15.5" y1="5" x2="15.5" y2="21" stroke="white" strokeWidth=".8" strokeOpacity=".4"/>
+          <rect x="4" y="7.5" width="18" height="12" rx="1.5" fill="none" stroke="white" strokeWidth="1.5"/>
+          <path d="M4 10l9 5.5L22 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        <span className="topbar-brand-name">Outlook</span>
+        <span className="topbar-brand-name">Email</span>
       </div>
 
       <div className="topbar-search">
