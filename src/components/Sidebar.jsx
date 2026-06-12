@@ -27,7 +27,7 @@ const folders = [
 
 export default function Sidebar({ open, unreadCount }) {
   return (
-    <div className={`sidebar${open ? '' : ' closed'}`} style={{ width: open ? 268 : 0 }}>
+    <div className={`sidebar${open ? '' : ' closed'}`}>
       {/* Icon rail */}
       <div className="sidebar-rail">
         {railItems.map(({ Icon, label, active }) => (
